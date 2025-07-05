@@ -7,14 +7,15 @@ from bs4 import BeautifulSoup
 
 
 # 目标网站：http://books.toscrape.com
-# 目标：爬取所有数据信息
+# 目标：爬取所有书籍信息
 
 class BookScraper(object):
 
-    def __init__(self):
+    def __init__(self, page=50):
         self.keep_path = os.path.join(os.getcwd(), "book.txt")
         self.base_url = "http://books.toscrape.com/"
-        self.delay = 2  # 每页抓取的间隔时间
+        self.delay = 1  # 每页抓取的间隔时间
+        self.page = page  # 想要抓取的页数
         self.headers = {
             "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36"
         }
@@ -72,7 +73,7 @@ class BookScraper(object):
             page_count += 1
 
             # 防止无限执行
-            if page_count > 50:
+            if page_count > self.page:
                 break
 
         return all_book
@@ -93,7 +94,7 @@ class BookScraper(object):
 
 if __name__ == "__main__":
     # 实例化爬虫
-    scraper = BookScraper()
+    scraper = BookScraper(100)  # 实际网站只有 50 页
     # 获取全部的书
     books_data = scraper.get_all_books()
     # 将书本信息保存到 txt
