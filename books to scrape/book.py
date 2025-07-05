@@ -10,8 +10,6 @@ from bs4 import BeautifulSoup
 # 目标：爬取所有数据信息
 
 class BookScraper(object):
-    all_book = []
-    page_count = 1
 
     def __init__(self):
         self.keep_path = os.path.join(os.getcwd(), "book.txt")
